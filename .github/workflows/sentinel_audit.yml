@@ -1,0 +1,9 @@
+name: Sentinel Audit
+on: [push]
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Run audit
+        run: echo "Sentinel Audit placeholder"
