@@ -23,6 +23,7 @@ This repository is intended to contain:
 - Links to selected BiologicalAGI and SCOS-related repositories as the hub is refined.
 - A plain-language overview of the ecosystem’s structure and relationships.
 - Guidance for safe exploration and documentation review.
+- [Public Glossary](docs/BIOLOGICALAGI_PUBLIC_GLOSSARY_V0_1.md): high-level public-safe terms and orientation.
 - Future contribution and collaboration guidelines after review.
 
 ## Quick Start
