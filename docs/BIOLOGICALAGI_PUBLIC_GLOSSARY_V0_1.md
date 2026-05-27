@@ -6,6 +6,10 @@ Public-safe documentation draft.
 
 This glossary is intended to provide high-level orientation terms for BiologicalAGI-Hub. It does not activate runtime functionality, automation, agents, bots, workers, deployment tooling, or production services.
 
+This glossary is intentionally limited to public-safe orientation terms. It is not a complete map of SCOS, BiologicalAGI, private governance methods, sandbox concepts, or future runtime work.
+
+Glossary entries describe documentation concepts only. They do not imply active runtime systems, automation, agents, bots, deployment, or production readiness.
+
 ## Glossary Rules
 
 Each term is written to remain:
@@ -113,27 +117,11 @@ Boundary:
 - These categories are review states, not permanent judgments.
 - They should be updated when evidence changes.
 
-## Terms Not Included in This Public Draft
+## Terms Intentionally Omitted
 
-The following terms require private governance framing, refinement, IP disclosure review, or future sandbox scoping before public-facing publication:
+Some additional internal governance, sandbox, prototype, and research terms are intentionally omitted from this public glossary pending further review.
 
-- Text-Based Computer
-- Text-Based Action Capability Ladder
-- Gray Angel Governance
-- Recursive Reflection Engine
-- Dimensional Abacus
-- Token / Node Map
-- Brackish State Logic
-- Holographic 1D Projection
-- Ghost Node Detection
-- Semantic Identity Persistence
-- Hybrid Biological + Digital Intelligence
-- Recursive Intelligence Model
-- Obsidian / Gold / Stone Classification
-- Worker Role Catalog
-- Simulated Coordination Trial
-- Persona / Tool Routing Partition Map
-- Active Catalog / Stimuli Inbox / Findings Ledger
+This omission protects public/private boundaries and avoids presenting internal vocabulary, future sandbox ideas, or prototype language as public-facing concepts before they are separately reviewed.
 
 ## Final Boundary
 
