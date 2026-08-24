@@ -26,54 +26,87 @@ Classification: `TESTED_REFERENCE / PUBLIC_DRAFT`
 
 Purpose:
 - provenance-carrying multidimensional observations (`Abacus`);
-- explicit continuous scale alignment/comparison (`Slide Ruler`);
+- explicit continuous linear-scale alignment/comparison (`Slide Ruler`);
 - explicit-only weighting;
 - separation of measurement from interpretation/authority;
 - versioned reproducible receipts whose derived numeric/claim fields are not caller-injectable.
 
-Explicit V0.1 models:
+Explicit V0.1 contracts:
 
 ```text
+SCHEMA_VERSION=transparent-instruments/0.1
 SCALE_MODEL=LINEAR_MIN_MAX
 WEIGHTED_AGGREGATION_MODEL=COMPENSATORY_WEIGHTED_MEAN
+STORAGE_CONTRACT=PUBLIC_API_APPEND_ONLY_NOT_TAMPER_PROOF
 ```
 
-Unsupported scale models are rejected rather than silently treated as linear. A compensatory weighted mean is identified as a mathematical aggregation only, not a safety/veto/authority mechanism.
+Unsupported scale models are rejected rather than silently treated as linear. A compensatory weighted mean is identified as mathematical aggregation only, not a safety/veto/authority mechanism.
 
-Current local reference-candidate validation:
+### Current execution evidence
+
+The contribution now has a read-only GitHub Actions matrix (`permissions: contents: read`) with no external Python-package installation. The tested source head completed successfully across:
 
 ```text
-PYTHON=3.13.5
-OS=Linux x86_64
-EXTERNAL_DEPENDENCIES=NONE
-UNIT_TESTS=38
-UNIT_PASS=38
-UNIT_FAIL_ERROR=0
-RANDOMIZED_INVARIANT_CHECKS=35000
-RANDOMIZED_SEED=20260823
-RANDOMIZED_RESULT=PASS
+ubuntu-latest / Python 3.12   PASS
+ubuntu-latest / Python 3.13   PASS
+windows-latest / Python 3.12  PASS
+windows-latest / Python 3.13  PASS
+macos-latest / Python 3.12    PASS
+macos-latest / Python 3.13    PASS
 ```
 
-The current newest GitHub PR head does not have an exact-head GitHub Actions execution. The 38/38 + 35,000 PASS is therefore classified as local reference-candidate evidence, not remote CI evidence.
+Per matrix job, the tested contract is:
 
-Failure-seeking has found and corrected:
+```text
+UNIT_TESTS=41
+PASS=41
+FAIL=0
+ERROR=0
+
+SEED=20260823
+ROUNDTRIP_CHECKS=10000
+EXTREME_SCALE_CHECKS=10000
+NARROW_SCALE_CHECKS=10000
+PROJECTION_CHECKS=5000
+WEIGHTED_CHECKS=5000
+ALIGNMENT_CHECKS=5000
+TOTAL_RANDOMIZED_INVARIANT_CHECKS=45000
+RESULT=PASS
+```
+
+This establishes the tested reference behavior on GitHub-hosted Ubuntu, Windows, and macOS under CPython 3.12/3.13. It does **not** establish the user's current iBUYPOWER host, every Python implementation, scientific validity, production readiness, or authority.
+
+### Failure-seeking record
+
+The draft preserves corrections rather than erasing earlier green results. Failure-seeking has found and corrected:
 
 1. NaN/infinity contamination;
 2. append-order language that could be mistaken for timestamp currentness;
 3. extreme finite intermediate arithmetic and finite-weight sum overflow;
 4. incomplete/forgeable derived receipt fields;
-5. hidden linear-scale and compensatory-aggregation assumptions.
+5. hidden linear-scale and compensatory-aggregation assumptions;
+6. precision loss on narrow same-sign floating-point intervals;
+7. overbroad append-only wording and insufficient weighted-result provenance.
 
-A manually requested GitHub Copilot review on an earlier head reviewed all seven files, recommended approval, and produced two concrete improvement comments: canonicalize validated Scale endpoints and avoid repeated bead rescans in weighted lookup. Both were addressed, replied to, and resolved. Copilot is advisory only and is not merge authority. A fresh current-head review is still required before treating that review as current.
+The narrow-interval finding was independently reproduced against high-precision decimal arithmetic, then frozen with a concrete regression and 10,000 ULP-scale randomized checks.
 
-Important limits:
+### Independent review
+
+Multiple manually requested GitHub Copilot review cycles were used as advisory review, not authority. Review findings included canonical numeric storage, repeated bead scans, duplicated derived receipt fields, stale validation metadata, repository-root execution ergonomics, and wording clarity around normalized weighted position. Concrete correctness/clarity findings were corrected or explicitly bounded.
+
+Copilot reviews are `COMMENTED` advisory evidence; they do not merge, approve, or establish scientific validity.
+
+### Important limits / holds
+
 - no claim of scientific validity for arbitrary dimensions;
 - no prediction or semantic-equivalence claim;
 - no authority/permission behavior;
 - no timestamp-currentness engine;
 - no generic logarithmic/ordinal scale semantics;
-- no Windows/macOS validation yet;
-- repository license is not yet selected, so public visibility is not presented as a grant of open-source reuse rights.
+- public-API append-only is not tamper-proof persistence;
+- the iBUYPOWER host has not yet been tested;
+- repository software license is not yet selected, so public visibility is not presented as a grant of open-source reuse rights;
+- PR #2 remains draft and unmerged/canonical promotion has not occurred.
 
 ## Public research
 
@@ -131,9 +164,11 @@ RESEARCH != CURRENT MACHINE STATE
 CAPABILITY != AUTHORITY
 PUBLIC BRANCH != CANONICAL MAIN
 APPEND ORDER != OBSERVED-TIME CURRENTNESS
+FINITE INPUT != SAFE INTERMEDIATE ARITHMETIC
 SERIALIZED RECEIPT != TRUSTED CLAIM
 LINEAR SCALE != GENERIC SCALE
 COMPENSATORY AGGREGATE != DECISION AUTHORITY
+PUBLIC API APPEND-ONLY != TAMPER-PROOF MEMORY
 AI-ASSISTED ANALYSIS != HUMAN UNDERSTANDING
 ```
 
@@ -148,4 +183,4 @@ When a public artifact is promoted, record:
 
 ## Current next public step
 
-Keep PR #2 draft. Request a fresh Copilot review only after the PR head is stable; do not merge merely because local tests are green. License selection and Windows validation remain separate owner/local proof gates.
+Keep PR #2 draft. Preserve the license and iBUYPOWER holds. Do not merge or broaden claims merely because cross-platform implementation tests are green; next useful evidence should come from explicit persistence/load testing, human-factor evaluation, or the intended local-host proof rather than feature expansion.
