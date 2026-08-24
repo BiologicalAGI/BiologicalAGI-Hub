@@ -29,37 +29,50 @@ Purpose:
 - explicit continuous scale alignment/comparison (`Slide Ruler`);
 - explicit-only weighting;
 - separation of measurement from interpretation/authority;
-- reproducible, versioned receipts whose derived numeric/claim fields are not caller-injectable.
+- versioned reproducible receipts whose derived numeric/claim fields are not caller-injectable.
 
-Current recorded validation:
+Explicit V0.1 models:
+
+```text
+SCALE_MODEL=LINEAR_MIN_MAX
+WEIGHTED_AGGREGATION_MODEL=COMPENSATORY_WEIGHTED_MEAN
+```
+
+Unsupported scale models are rejected rather than silently treated as linear. A compensatory weighted mean is identified as a mathematical aggregation only, not a safety/veto/authority mechanism.
+
+Current local reference-candidate validation:
 
 ```text
 PYTHON=3.13.5
 OS=Linux x86_64
 EXTERNAL_DEPENDENCIES=NONE
-UNIT_TESTS=34
-UNIT_PASS=34
+UNIT_TESTS=38
+UNIT_PASS=38
 UNIT_FAIL_ERROR=0
 RANDOMIZED_INVARIANT_CHECKS=35000
 RANDOMIZED_SEED=20260823
 RANDOMIZED_RESULT=PASS
 ```
 
-Evidence history matters. Failure-seeking has found and corrected:
+The current newest GitHub PR head does not have an exact-head GitHub Actions execution. The 38/38 + 35,000 PASS is therefore classified as local reference-candidate evidence, not remote CI evidence.
+
+Failure-seeking has found and corrected:
 
 1. NaN/infinity contamination;
 2. append-order language that could be mistaken for timestamp currentness;
-3. extreme finite intermediate arithmetic overflow and finite-weight sum overflow;
-4. incomplete/forgeable standalone Alignment/Projection receipt fields.
+3. extreme finite intermediate arithmetic and finite-weight sum overflow;
+4. incomplete/forgeable derived receipt fields;
+5. hidden linear-scale and compensatory-aggregation assumptions.
 
-A manually requested GitHub Copilot review on an earlier head reviewed all seven files, recommended approval, and produced two concrete improvement comments: canonicalize validated Scale endpoints and avoid repeated bead rescans in weighted lookup. Both were addressed. Copilot is advisory only and is not treated as merge authority; a fresh review has been requested on the hardened head.
+A manually requested GitHub Copilot review on an earlier head reviewed all seven files, recommended approval, and produced two concrete improvement comments: canonicalize validated Scale endpoints and avoid repeated bead rescans in weighted lookup. Both were addressed, replied to, and resolved. Copilot is advisory only and is not merge authority. A fresh current-head review is still required before treating that review as current.
 
 Important limits:
 - no claim of scientific validity for arbitrary dimensions;
 - no prediction or semantic-equivalence claim;
 - no authority/permission behavior;
 - no timestamp-currentness engine;
-- no Windows validation yet;
+- no generic logarithmic/ordinal scale semantics;
+- no Windows/macOS validation yet;
 - repository license is not yet selected, so public visibility is not presented as a grant of open-source reuse rights.
 
 ## Public research
@@ -119,6 +132,8 @@ CAPABILITY != AUTHORITY
 PUBLIC BRANCH != CANONICAL MAIN
 APPEND ORDER != OBSERVED-TIME CURRENTNESS
 SERIALIZED RECEIPT != TRUSTED CLAIM
+LINEAR SCALE != GENERIC SCALE
+COMPENSATORY AGGREGATE != DECISION AUTHORITY
 AI-ASSISTED ANALYSIS != HUMAN UNDERSTANDING
 ```
 
@@ -133,4 +148,4 @@ When a public artifact is promoted, record:
 
 ## Current next public step
 
-Keep PR #2 draft while the fresh Copilot review completes. Do not merge merely because tests are green. License selection and Windows validation remain separate owner/local proof gates.
+Keep PR #2 draft. Request a fresh Copilot review only after the PR head is stable; do not merge merely because local tests are green. License selection and Windows validation remain separate owner/local proof gates.
