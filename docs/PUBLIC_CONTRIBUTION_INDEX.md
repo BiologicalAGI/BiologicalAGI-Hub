@@ -28,7 +28,7 @@ Purpose:
 - provenance-carrying multidimensional observations (`Abacus`);
 - explicit continuous scale alignment/comparison (`Slide Ruler`);
 - explicit-only weighting;
-- separation of measurement from interpretation/authority.
+- separation of measurement from interpretation/authority/currentness.
 
 Current recorded validation:
 
@@ -36,19 +36,20 @@ Current recorded validation:
 PYTHON=3.13.5
 OS=Linux x86_64
 EXTERNAL_DEPENDENCIES=NONE
-UNIT_TESTS=18
-UNIT_PASS=18
+UNIT_TESTS=19
+UNIT_PASS=19
 UNIT_FAIL_ERROR=0
 RANDOMIZED_INVARIANT_CHECKS=25000
 RANDOMIZED_SEED=20260823
 RANDOMIZED_RESULT=PASS
 ```
 
-Evidence history matters: the first 12-test pass was followed by an adversarial review that found a real non-finite-number defect (`NaN`/infinity could contaminate normalization/weighting). The code was hardened, the expanded 18-test suite became the current unit baseline, and a committed fixed-seed driver then passed 25,000 additional implementation-invariant checks. The earlier pass remains documented rather than erased.
+Evidence history matters. The initial 12-test pass was superseded after review found non-finite numeric contamination risk. A later semantic review found that `latest()` could be read as timestamp currentness although the implementation used append order. The API now says `last_appended()`, snapshots explicitly declare `LAST_APPENDED_PER_DIMENSION` and `observed_at_ordering=NOT_INTERPRETED`, and a backfill regression freezes the distinction.
 
 Important limits:
 - no claim of scientific validity for arbitrary dimensions;
 - no prediction or semantic-equivalence claim;
+- no temporal-currentness inference from `observed_at`;
 - no authority/permission behavior;
 - no Windows validation yet;
 - repository license is not yet selected, so public visibility is not presented as a grant of open-source reuse rights.
@@ -108,6 +109,7 @@ TESTED != PRODUCTION
 RESEARCH != CURRENT MACHINE STATE
 CAPABILITY != AUTHORITY
 PUBLIC BRANCH != CANONICAL MAIN
+APPEND ORDER != OBSERVED-TIME CURRENTNESS
 AI-ASSISTED ANALYSIS != HUMAN UNDERSTANDING
 ```
 
