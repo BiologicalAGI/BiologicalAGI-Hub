@@ -24,6 +24,7 @@ This repository is intended to contain:
 - A plain-language overview of the ecosystem’s structure and relationships.
 - Guidance for safe exploration and documentation review.
 - [Public Glossary](docs/BIOLOGICALAGI_PUBLIC_GLOSSARY_V0_1.md): high-level public-safe terms and orientation.
+- [Public Contribution Index](docs/PUBLIC_CONTRIBUTION_INDEX.md): evidence-based status map for selected public work and drafts.
 - Future contribution and collaboration guidelines after review.
 
 ## Quick Start
