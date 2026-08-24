@@ -28,7 +28,8 @@ Purpose:
 - provenance-carrying multidimensional observations (`Abacus`);
 - explicit continuous scale alignment/comparison (`Slide Ruler`);
 - explicit-only weighting;
-- separation of measurement from interpretation/authority/currentness.
+- separation of measurement from interpretation/authority;
+- reproducible, versioned receipts whose derived numeric/claim fields are not caller-injectable.
 
 Current recorded validation:
 
@@ -36,21 +37,28 @@ Current recorded validation:
 PYTHON=3.13.5
 OS=Linux x86_64
 EXTERNAL_DEPENDENCIES=NONE
-UNIT_TESTS=19
-UNIT_PASS=19
+UNIT_TESTS=34
+UNIT_PASS=34
 UNIT_FAIL_ERROR=0
-RANDOMIZED_INVARIANT_CHECKS=25000
+RANDOMIZED_INVARIANT_CHECKS=35000
 RANDOMIZED_SEED=20260823
 RANDOMIZED_RESULT=PASS
 ```
 
-Evidence history matters. The initial 12-test pass was superseded after review found non-finite numeric contamination risk. A later semantic review found that `latest()` could be read as timestamp currentness although the implementation used append order. The API now says `last_appended()`, snapshots explicitly declare `LAST_APPENDED_PER_DIMENSION` and `observed_at_ordering=NOT_INTERPRETED`, and a backfill regression freezes the distinction.
+Evidence history matters. Failure-seeking has found and corrected:
+
+1. NaN/infinity contamination;
+2. append-order language that could be mistaken for timestamp currentness;
+3. extreme finite intermediate arithmetic overflow and finite-weight sum overflow;
+4. incomplete/forgeable standalone Alignment/Projection receipt fields.
+
+A manually requested GitHub Copilot review on an earlier head reviewed all seven files, recommended approval, and produced two concrete improvement comments: canonicalize validated Scale endpoints and avoid repeated bead rescans in weighted lookup. Both were addressed. Copilot is advisory only and is not treated as merge authority; a fresh review has been requested on the hardened head.
 
 Important limits:
 - no claim of scientific validity for arbitrary dimensions;
 - no prediction or semantic-equivalence claim;
-- no temporal-currentness inference from `observed_at`;
 - no authority/permission behavior;
+- no timestamp-currentness engine;
 - no Windows validation yet;
 - repository license is not yet selected, so public visibility is not presented as a grant of open-source reuse rights.
 
@@ -110,6 +118,7 @@ RESEARCH != CURRENT MACHINE STATE
 CAPABILITY != AUTHORITY
 PUBLIC BRANCH != CANONICAL MAIN
 APPEND ORDER != OBSERVED-TIME CURRENTNESS
+SERIALIZED RECEIPT != TRUSTED CLAIM
 AI-ASSISTED ANALYSIS != HUMAN UNDERSTANDING
 ```
 
@@ -124,4 +133,4 @@ When a public artifact is promoted, record:
 
 ## Current next public step
 
-Review Transparent Instruments draft PR #2, choose an explicit software license if reusable open-source distribution is intended, then continue failure-seeking and add cross-platform validation before expanding features.
+Keep PR #2 draft while the fresh Copilot review completes. Do not merge merely because tests are green. License selection and Windows validation remain separate owner/local proof gates.
