@@ -30,17 +30,19 @@ Purpose:
 - explicit-only weighting;
 - separation of measurement from interpretation/authority.
 
-Recorded validation:
+Current recorded validation:
 
 ```text
 PYTHON=3.13.5
 OS=Linux x86_64
 EXTERNAL_DEPENDENCIES=NONE
-UNIT_TESTS=12
-PASS=12
+UNIT_TESTS=18
+PASS=18
 FAIL=0
 ERROR=0
 ```
+
+Evidence history matters: the first 12-test pass was followed by an adversarial review that found a real non-finite-number defect (`NaN`/infinity could contaminate normalization/weighting). The code was hardened and the expanded 18-test suite is the current baseline. The earlier pass remains documented rather than erased.
 
 Important limits:
 - no claim of scientific validity for arbitrary dimensions;
@@ -118,4 +120,4 @@ When a public artifact is promoted, record:
 
 ## Current next public step
 
-Review Transparent Instruments draft PR #2, choose an explicit software license if reusable open-source distribution is intended, then seek failure cases before adding features.
+Review Transparent Instruments draft PR #2, choose an explicit software license if reusable open-source distribution is intended, then continue failure-seeking and add cross-platform validation before expanding features.
