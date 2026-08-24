@@ -37,12 +37,14 @@ PYTHON=3.13.5
 OS=Linux x86_64
 EXTERNAL_DEPENDENCIES=NONE
 UNIT_TESTS=18
-PASS=18
-FAIL=0
-ERROR=0
+UNIT_PASS=18
+UNIT_FAIL_ERROR=0
+RANDOMIZED_INVARIANT_CHECKS=25000
+RANDOMIZED_SEED=20260823
+RANDOMIZED_RESULT=PASS
 ```
 
-Evidence history matters: the first 12-test pass was followed by an adversarial review that found a real non-finite-number defect (`NaN`/infinity could contaminate normalization/weighting). The code was hardened and the expanded 18-test suite is the current baseline. The earlier pass remains documented rather than erased.
+Evidence history matters: the first 12-test pass was followed by an adversarial review that found a real non-finite-number defect (`NaN`/infinity could contaminate normalization/weighting). The code was hardened, the expanded 18-test suite became the current unit baseline, and a committed fixed-seed driver then passed 25,000 additional implementation-invariant checks. The earlier pass remains documented rather than erased.
 
 Important limits:
 - no claim of scientific validity for arbitrary dimensions;
